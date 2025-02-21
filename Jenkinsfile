@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Clone Repo') {
             steps {
-                git 'https://github.com/your-repo.git'
+                git 'https://github.com/sayfatay/poc-next-jenkins.git'
             }
         }
         

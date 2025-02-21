@@ -7,9 +7,22 @@ pipeline {
     }
 
     stages {
-         stage('Clone Repo') {
+        //  stage('Clone Repo') {
+        //     steps {
+        //         git url: 'https://github.com/sayfatay/poc-next-jenkins.git', branch: 'master'
+        //     }
+        // }
+        stage('Check Git Version') {
             steps {
-                git url: 'https://github.com/sayfatay/poc-next-jenkins.git', branch: 'master'
+                script {
+                    sh 'git --version'
+                }
+            }
+        }
+
+        stage('Clone Repo') {
+            steps {
+                git 'https://github.com/sayfatay/poc-next-jenkins.git'
             }
         }
         

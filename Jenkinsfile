@@ -7,52 +7,44 @@ pipeline {
     }
 
     stages {
-        
-        stage('Check Git Version') {
+        stage('Clean Workspace') {
             steps {
-                script {
-                    sh 'git --version'
-                }
+                cleanWs()  // ล้าง workspace เก่าก่อน
             }
         }
+        
+        stage('Check Tools') {
+            steps {
+                sh '''
+                    git --version
+                    docker --version
+                '''
+            }
+        }
+
         stage('Clone Repo') {
             steps {
-                git 'https://github.com/sayfatay/poc-next-jenkins.git'
-            }
-            
-        }
-        stage('Check Docker Version') {
-            steps {
-                script {
-                    sh 'docker --version'
+                dir("${env.WORKSPACE}") {  // ระบุ directory ชัดเจน
+                    git branch: 'main',
+                        url: 'https://github.com/sayfatay/poc-next-jenkins.git',
+                        changelog: false,
+                        poll: false
                 }
             }
         }
+
         stage('Build Docker Image') {
             steps {
-                script {
+                dir("${env.WORKSPACE}") {  // ต้องแน่ใจว่าอยู่ใน directory ที่มี Dockerfile
                     sh "docker build -t $IMAGE_NAME ."
                 }
             }
         }
-        
-        // stage('Stop & Remove Old Container') {
-        //     steps {
-        //         script {
-        //             sh """
-        //                 docker stop $CONTAINER_NAME || true
-        //                 docker rm $CONTAINER_NAME || true
-        //             """
-        //         }
-        //     }
-        // }
-        
-        // stage('Run New Container') {
-        //     steps {
-        //         script {
-        //             sh "docker run -d --name $CONTAINER_NAME -p 80:80 $IMAGE_NAME"
-        //         }
-        //     }
-        // }
+    }
+
+    post {
+        always {
+            cleanWs()  // ล้าง workspace หลังเสร็จงาน
+        }
     }
 }

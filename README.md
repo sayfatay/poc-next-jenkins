@@ -62,7 +62,6 @@ docker run -d \
   -p 8089:8080 \
   -p 50000:50000 \
   -v jenkins_home:/var/jenkins_home \
-  -v /var/run/docker.sock:/var/run/docker.sock
   jenkins/jenkins:lts
 
 ##  ถ้าใช้ docker ไม่ได้
@@ -100,3 +99,18 @@ https://chatgpt.com/share/67b82e74-c21c-800f-9441-9dd5b40fdaa1
 u:admin
 p:1qaz@WSX
 e:admin@gmail.com
+
+
+## install local 
+68eee5f5ffb94b289587a9d72ceceed9
+
+
+
+
+docker run --privileged -d \
+  --name jenkins_dind \
+  -p 8082:8080 \
+  -p 50000:50000 \
+  -v jenkins_home:/var/jenkins_home \
+  --entrypoint="/bin/sh" \
+  docker:dind

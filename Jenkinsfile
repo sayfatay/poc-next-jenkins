@@ -20,19 +20,13 @@ pipeline {
                 git url: 'https://github.com/sayfatay/poc-next-jenkins.git', branch: 'master'
             }
         }
-        // stage('Clone Repo') {
-        //     steps {
-        //         git 'https://github.com/sayfatay/poc-next-jenkins.git'
-        //     }
-        // }
-        
-        // stage('Build Docker Image') {
-        //     steps {
-        //         script {
-        //             sh "docker build -t $IMAGE_NAME ."
-        //         }
-        //     }
-        // }
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    sh "docker build -t $IMAGE_NAME ."
+                }
+            }
+        }
         
         // stage('Stop & Remove Old Container') {
         //     steps {

@@ -20,6 +20,13 @@ pipeline {
                 git url: 'https://github.com/sayfatay/poc-next-jenkins.git', branch: 'master'
             }
         }
+        stage('Check Docker Version') {
+            steps {
+                script {
+                    sh 'docker --version'
+                }
+            }
+        }
         stage('Build Docker Image') {
             steps {
                 script {

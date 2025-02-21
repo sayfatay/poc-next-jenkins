@@ -32,3 +32,22 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+
+
+<!-- jenkins -->
+docker run -d \
+  --name jenkins \
+  -p 8099:8080 \
+  -p 50000:50000 \
+  -v jenkins_home:/var/jenkins_home \
+  jenkins/jenkins:lts
+
+## Administrator password เข้าไปเอา password jenkins
+docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
+03554f106cb744f281123601d3ca9856
+
+https://chatgpt.com/share/67b82e74-c21c-800f-9441-9dd5b40fdaa1
+u:admin
+p:1qaz@WSX
+e:admin@gmail.com

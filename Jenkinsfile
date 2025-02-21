@@ -9,7 +9,8 @@ pipeline {
     stages {
         stage('Clean Workspace') {
             steps {
-                cleanWs()  // ล้าง workspace เก่าก่อน
+                cleanWs()  // Clean the workspace
+                sh 'rm -rf .git'  // Remove any existing .git directory
             }
         }
         
@@ -24,8 +25,9 @@ pipeline {
 
         stage('Clone Repo') {
             steps {
-                dir("${env.WORKSPACE}") {  // ระบุ directory ชัดเจน
-                    git branch: 'main',
+                dir("${env.WORKSPACE}") {
+                    sh 'pwd'  // Print the current working directory
+                    git branch: 'master',
                         url: 'https://github.com/sayfatay/poc-next-jenkins.git',
                         changelog: false,
                         poll: false
@@ -35,7 +37,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                dir("${env.WORKSPACE}") {  // ต้องแน่ใจว่าอยู่ใน directory ที่มี Dockerfile
+                dir("${env.WORKSPACE}") {
                     sh "docker build -t $IMAGE_NAME ."
                 }
             }
@@ -44,7 +46,7 @@ pipeline {
 
     post {
         always {
-            cleanWs()  // ล้าง workspace หลังเสร็จงาน
+            cleanWs()  // Clean the workspace after the build
         }
     }
 }

@@ -20,37 +20,37 @@ pipeline {
             }
         }
 
-        stage('Clone Repo') {
-            steps {
-                git 'https://github.com/sayfatay/poc-next-jenkins.git'
-            }
-        }
+        // stage('Clone Repo') {
+        //     steps {
+        //         git 'https://github.com/sayfatay/poc-next-jenkins.git'
+        //     }
+        // }
         
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    sh "docker build -t $IMAGE_NAME ."
-                }
-            }
-        }
+        // stage('Build Docker Image') {
+        //     steps {
+        //         script {
+        //             sh "docker build -t $IMAGE_NAME ."
+        //         }
+        //     }
+        // }
         
-        stage('Stop & Remove Old Container') {
-            steps {
-                script {
-                    sh """
-                        docker stop $CONTAINER_NAME || true
-                        docker rm $CONTAINER_NAME || true
-                    """
-                }
-            }
-        }
+        // stage('Stop & Remove Old Container') {
+        //     steps {
+        //         script {
+        //             sh """
+        //                 docker stop $CONTAINER_NAME || true
+        //                 docker rm $CONTAINER_NAME || true
+        //             """
+        //         }
+        //     }
+        // }
         
-        stage('Run New Container') {
-            steps {
-                script {
-                    sh "docker run -d --name $CONTAINER_NAME -p 80:80 $IMAGE_NAME"
-                }
-            }
-        }
+        // stage('Run New Container') {
+        //     steps {
+        //         script {
+        //             sh "docker run -d --name $CONTAINER_NAME -p 80:80 $IMAGE_NAME"
+        //         }
+        //     }
+        // }
     }
 }

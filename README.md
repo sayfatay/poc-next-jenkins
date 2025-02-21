@@ -36,12 +36,38 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 
 <!-- jenkins -->
-docker run -d \
+
+
+  docker run -d \
   --name jenkins \
   -p 8099:8080 \
   -p 50000:50000 \
   -v jenkins_home:/var/jenkins_home \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  --user root \
   jenkins/jenkins:lts
+
+docker run -d \
+  --name jenkins \
+  -p 8089:8080 \
+  -p 50000:50000 \
+  -v jenkins_home:/var/jenkins_home \
+  jenkins/jenkins:lts
+
+cd /var/jenkins_home/workspace
+
+docker stop jenkins
+docker rm jenkins
+
+## แล้วทำอันนี้ต่อ
+docker exec -it jenkins bash
+apt-get update && apt-get install -y git
+git --version
+exit
+docker restart jenkins
+
+
+
 
 ## Administrator password เข้าไปเอา password jenkins
 docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword

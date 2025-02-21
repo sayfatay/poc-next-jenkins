@@ -15,11 +15,11 @@ pipeline {
                 }
             }
         }
-//  stage('Clone Repo') {
-        //     steps {
-        //         git url: 'https://github.com/sayfatay/poc-next-jenkins.git', branch: 'master'
-        //     }
-        // }
+        stage('Clone Repo') {
+            steps {
+                git url: 'https://github.com/sayfatay/poc-next-jenkins.git', branch: 'master'
+            }
+        }
         // stage('Clone Repo') {
         //     steps {
         //         git 'https://github.com/sayfatay/poc-next-jenkins.git'

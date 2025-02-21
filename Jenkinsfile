@@ -17,8 +17,9 @@ pipeline {
         }
         stage('Clone Repo') {
             steps {
-                git url: 'https://github.com/sayfatay/poc-next-jenkins.git', branch: 'master'
+                git 'https://github.com/sayfatay/poc-next-jenkins.git'
             }
+            
         }
         stage('Check Docker Version') {
             steps {

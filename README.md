@@ -52,7 +52,30 @@ docker run -d \
   -p 8089:8080 \
   -p 50000:50000 \
   -v jenkins_home:/var/jenkins_home \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  --user root \
   jenkins/jenkins:lts
+
+
+docker run -d \
+  --name jenkins \
+  -p 8089:8080 \
+  -p 50000:50000 \
+  -v jenkins_home:/var/jenkins_home \
+  -v /var/run/docker.sock:/var/run/docker.sock
+  jenkins/jenkins:lts
+
+##  ถ้าใช้ docker ไม่ได้
+docker exec -it --user root jenkins bash
+apt-get update
+apt-get install -y docker.io
+docker --version
+
+groupadd docker
+usermod -aG docker jenkins
+docker restart jenkins
+
+
 
 cd /var/jenkins_home/workspace
 

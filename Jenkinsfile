@@ -81,10 +81,18 @@ pipeline {
             }
         }
 
-        stage('Run New Container') {
+        stage('Deploy Container 1') {
             steps {
                 script {
                     sh "docker run -d --name $CONTAINER_NAME -p 8077:3000 $IMAGE_NAME"
+                }
+            }
+        }
+
+        stage('Deploy Container 2') {
+            steps {
+                script {
+                    sh "docker run -d --name $CONTAINER_NAME -p 8076:3000 $IMAGE_NAME"
                 }
             }
         }

@@ -23,14 +23,33 @@ pipeline {
             }
         }
 
-        stage('Clone Repo') {
+        // stage('Clone Repo') {
+        //     steps {
+        //         dir("${env.WORKSPACE}") {
+        //             sh 'pwd'  // Print the current working directory
+        //             git branch: 'master',
+        //                 url: 'https://github.com/sayfatay/poc-next-jenkins.git',
+        //                 changelog: false,
+        //                 poll: false
+        //         }
+        //     }
+        // }
+
+        stage('Clone or Pull Repo') {
             steps {
                 dir("${env.WORKSPACE}") {
-                    sh 'pwd'  // Print the current working directory
-                    git branch: 'master',
-                        url: 'https://github.com/sayfatay/poc-next-jenkins.git',
-                        changelog: false,
-                        poll: false
+                    script {
+                        if (fileExists(".git")) {
+                            sh '''
+                                echo "Repository already exists. Pulling latest changes..."
+                                git reset --hard
+                                git pull origin master
+                            '''
+                        } else {
+                            echo "Cloning repository..."
+                            git clone -b master git@github.com:sayfatay/poc-next-jenkins.git .
+                        }
+                    }
                 }
             }
         }

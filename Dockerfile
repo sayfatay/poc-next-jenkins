@@ -14,16 +14,17 @@ COPY . .
 # สร้าง build ของ Next.js
 RUN npm run build
 
-# ใช้ Nginx เป็น Web Server สำหรับ Serve Next.js
-FROM nginx:alpine AS runner
+# ใช้ Node.js เป็น base image สำหรับ runtime
+FROM node:18-alpine AS runner
 
-# คัดลอกไฟล์ build เข้าไปที่ Nginx
-COPY --from=builder /app/.next /usr/share/nginx/html
+# ตั้งค่า working directory
+WORKDIR /app
 
-# คัดลอกไฟล์ config ของ Nginx
-COPY nginx.conf /etc/nginx/nginx.conf
+# คัดลอกไฟล์ที่ build แล้วมาจาก builder stage
+COPY --from=builder /app ./
 
-# เปิดพอร์ต 80
-EXPOSE 80
+# ตั้งค่าพอร์ตที่ Next.js ใช้
+EXPOSE 3000
 
-CMD ["nginx", "-g", "daemon off;"]
+# คำสั่งสำหรับรัน Next.js
+CMD ["npm", "run", "start"]

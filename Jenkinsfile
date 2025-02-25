@@ -71,32 +71,32 @@ pipeline {
             }
         }
 
-        stage('Stop & Remove Old Container') {
-            steps {
-                script {
-                    sh """
-                        docker stop $CONTAINER_NAME || true
-                        docker rm $CONTAINER_NAME || true
-                    """
-                }
-            }
-        }
+        // stage('Stop & Remove Old Container') {
+        //     steps {
+        //         script {
+        //             sh """
+        //                 docker stop $CONTAINER_NAME || true
+        //                 docker rm $CONTAINER_NAME || true
+        //             """
+        //         }
+        //     }
+        // }
 
-        stage('Deploy Container 1') {
-            steps {
-                script {
-                    sh "docker run -d --name $CONTAINER_NAME -p 8077:3000 $IMAGE_NAME"
-                }
-            }
-        }
+        // stage('Deploy Container 1') {
+        //     steps {
+        //         script {
+        //             sh "docker run -d --name $CONTAINER_NAME -p 8077:3000 $IMAGE_NAME"
+        //         }
+        //     }
+        // }
 
-        stage('Deploy Container 2') {
-            steps {
-                script {
-                    sh "docker run -d --name $CONTAINER_NAME2 -p 8076:3000 $IMAGE_NAME"
-                }
-            }
-        }
+        // stage('Deploy Container 2') {
+        //     steps {
+        //         script {
+        //             sh "docker run -d --name $CONTAINER_NAME2 -p 8076:3000 $IMAGE_NAME"
+        //         }
+        //     }
+        // }
         
     }
 

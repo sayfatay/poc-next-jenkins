@@ -47,7 +47,9 @@ pipeline {
                             '''
                         } else {
                             echo "Cloning repository..."
-                            git clone -b master git@github.com:sayfatay/poc-next-jenkins.git .
+                            sh '''
+                                git clone -b master git@github.com:sayfatay/poc-next-jenkins.git .
+                            '''
                         }
                     }
                 }

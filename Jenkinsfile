@@ -4,6 +4,7 @@ pipeline {
     environment {
         IMAGE_NAME = "nextjs-app"
         CONTAINER_NAME = "nextjs-container"
+        CONTAINER_NAME2 = "nextjs-container-2"
     }
 
     stages {
@@ -92,7 +93,7 @@ pipeline {
         stage('Deploy Container 2') {
             steps {
                 script {
-                    sh "docker run -d --name $CONTAINER_NAME -p 8076:3000 $IMAGE_NAME"
+                    sh "docker run -d --name $CONTAINER_NAME2 -p 8076:3000 $IMAGE_NAME"
                 }
             }
         }

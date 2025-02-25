@@ -40,22 +40,26 @@ pipeline {
                 dir("${env.WORKSPACE}") {
                     script {
                         if (fileExists(".git")) {
-                            echo "Repository already exists. Pulling latest changes..."
                             sh '''
+                                echo "Repository already exists. Pulling latest changes..."
                                 git reset --hard
-                                git clean -fd
                                 git pull origin master
                             '''
                         } else {
                             echo "Cloning repository..."
-                            sh '''
-                                git clone -b master git@github.com:sayfatay/poc-next-jenkins.git
-                            '''
+                            checkout([$class: 'GitSCM', 
+                                branches: [[name: 'master']], 
+                                userRemoteConfigs: [[
+                                    url: 'https://github.com/sayfatay/poc-next-jenkins.git', 
+                                    credentialsId: 'git-credentials-local-test'
+                                ]]
+                            ])
                         }
                     }
                 }
             }
         }
+
 
 
         stage('Build Docker Image') {

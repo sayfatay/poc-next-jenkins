@@ -40,9 +40,10 @@ pipeline {
                 dir("${env.WORKSPACE}") {
                     script {
                         if (fileExists(".git")) {
+                            echo "Repository already exists. Pulling latest changes..."
                             sh '''
-                                echo "Repository already exists. Pulling latest changes..."
                                 git reset --hard
+                                git clean -fd
                                 git pull origin master
                             '''
                         } else {
@@ -55,6 +56,7 @@ pipeline {
                 }
             }
         }
+
 
         stage('Build Docker Image') {
             steps {

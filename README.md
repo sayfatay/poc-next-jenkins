@@ -38,15 +38,6 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 <!-- jenkins -->
 
 
-  docker run -d \
-  --name jenkins \
-  -p 8099:8080 \
-  -p 50000:50000 \
-  -v jenkins_home:/var/jenkins_home \
-  -v /var/run/docker.sock:/var/run/docker.sock \
-  --user root \
-  jenkins/jenkins:lts
-
 docker run -d \
   --name jenkins \
   -p 8089:8080 \
@@ -58,12 +49,6 @@ docker run -d \
   jenkins/jenkins:lts
 
 
-docker run -d \
-  --name jenkins \
-  -p 8089:8080 \
-  -p 50000:50000 \
-  -v jenkins_home:/var/jenkins_home \
-  jenkins/jenkins:lts
 
 ##  ถ้าใช้ docker ไม่ได้
 docker exec -it --user root jenkins bash
@@ -104,14 +89,3 @@ e:admin@gmail.com
 
 ## install local 
 68eee5f5ffb94b289587a9d72ceceed9
-
-
-
-
-docker run --privileged -d \
-  --name jenkins_dind \
-  -p 8082:8080 \
-  -p 50000:50000 \
-  -v jenkins_home:/var/jenkins_home \
-  --entrypoint="/bin/sh" \
-  docker:dind
